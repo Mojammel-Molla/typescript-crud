@@ -1,19 +1,16 @@
-import mongoose, { Schema } from 'mongoose';
+import { Schema, model } from 'mongoose';
 import { ShoeInventory, ShoeProduct, ShoeVariant } from './product.interface';
 
-// Define the ShoeVariant sub-document schema
 const ShoeVariantSchema = new Schema<ShoeVariant>({
   type: { type: String, required: true },
   value: { type: String, required: true },
 });
 
-// Define the ShoeInventory sub-document schema
 const ShoeInventorySchema = new Schema<ShoeInventory>({
   quantity: { type: Number, required: true },
   inStock: { type: Boolean, required: true },
 });
 
-// Define the main ShoeProduct schema
 const ShoeProductSchema = new Schema<ShoeProduct>({
   name: { type: String, required: true },
   description: { type: String, required: true },
@@ -23,8 +20,7 @@ const ShoeProductSchema = new Schema<ShoeProduct>({
   variants: { type: [ShoeVariantSchema], required: true },
   inventory: { type: ShoeInventorySchema, required: true },
 });
-
-export const ShoeProductModel = mongoose.model(
+export const ShoeProductModel = model<ShoeProduct>(
   'ShoeProduct',
   ShoeProductSchema,
 );
