@@ -21,4 +21,21 @@ const createOrder = async (req: Request, res: Response) => {
   }
 };
 
-export const orderController = { createOrder };
+const getAllOrders = async (req: Request, res: Response) => {
+  try {
+    const result = await orderServices.getAllOrdersFromDB();
+    res.status(200).json({
+      success: true,
+      message: 'get all orders successfully!',
+      data: result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: "Couldn't get any order",
+      error,
+    });
+  }
+};
+
+export const orderController = { createOrder, getAllOrders };

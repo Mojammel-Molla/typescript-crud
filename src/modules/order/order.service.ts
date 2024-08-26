@@ -5,4 +5,10 @@ const createOrderIntoDB = async (order: OrderInterface) => {
   const result = await orderModel.create(order);
   return result;
 };
-export const orderServices = { createOrderIntoDB };
+
+const getAllOrdersFromDB = async () => {
+  const result = await orderModel.find();
+  return result;
+};
+
+export const orderServices = { createOrderIntoDB, getAllOrdersFromDB };
