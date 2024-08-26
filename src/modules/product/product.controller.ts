@@ -13,8 +13,12 @@ const createProduct = async (req: Request, res: Response) => {
       massage: 'Product created successfully',
       data: result,
     });
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: "Couldn't create product",
+      error,
+    });
   }
 };
 
@@ -26,8 +30,12 @@ const getAllProducts = async (req: Request, res: Response) => {
       message: 'Products fetched successfully!',
       data: result,
     });
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: "Couldn't get any product",
+      error,
+    });
   }
 };
 
