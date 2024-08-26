@@ -1,10 +1,12 @@
 import { Request, Response } from 'express';
 import { ProductServices } from './product.service';
+import { ProductValidation } from './product.validation';
 
 const createProduct = async (req: Request, res: Response) => {
   try {
     const product = req.body;
-    const result = await ProductServices.createProductIntoDB(product);
+    const validatedProduct = ProductValidation.parse(product);
+    const result = await ProductServices.createProductIntoDB(validatedProduct);
 
     res.status(200).json({
       success: true,
@@ -21,7 +23,7 @@ const getAllProducts = async (req: Request, res: Response) => {
     const result = await ProductServices.getAllProductsFromDB();
     res.status(200).json({
       success: true,
-      massage: 'All products retrieved successfully',
+      message: 'Products fetched successfully!',
       data: result,
     });
   } catch (err) {
@@ -31,8 +33,8 @@ const getAllProducts = async (req: Request, res: Response) => {
 
 const getSingleProduct = async (req: Request, res: Response) => {
   try {
-    const { _id } = req.params;
-    const result = await ProductServices.getSingleProductFromDB(_id);
+    const { productId } = req.params;
+    const result = await ProductServices.getSingleProductFromDB(productId);
     res.status(200).json({
       success: true,
       massage: 'Single product retrieved successfully',
