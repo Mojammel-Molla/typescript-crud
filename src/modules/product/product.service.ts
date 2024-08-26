@@ -6,6 +6,17 @@ const createProductIntoDB = async (product: ShoeProduct) => {
   return result;
 };
 
+const getAllProductsFromDB = async () => {
+  const result = await ShoeProductModel.find();
+  return result;
+};
+
+const getSingleProductFromDB = async (id: string) => {
+  const result = await ShoeProductModel.findOne({ _id: id });
+  return result;
+};
 export const ProductServices = {
   createProductIntoDB,
+  getAllProductsFromDB,
+  getSingleProductFromDB,
 };
