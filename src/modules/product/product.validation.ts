@@ -21,6 +21,7 @@ const ProductValidation = z.object({
   tags: z.array(z.string()).min(1, 'Product tags are required'),
   variants: z.array(VariantsValidation).min(1, 'Product variants are required'),
   inventory: InventoryValidation,
+  isDeleted: z.boolean(),
 });
 
 export { ProductValidation };

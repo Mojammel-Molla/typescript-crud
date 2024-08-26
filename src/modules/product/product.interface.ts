@@ -16,4 +16,5 @@ export type ShoeProduct = {
   tags: string[];
   variants: ShoeVariant[];
   inventory: ShoeInventory;
+  isDeleted: boolean;
 };
