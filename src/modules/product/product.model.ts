@@ -30,6 +30,12 @@ ShoeProductSchema.pre('find', function (next) {
   this.find({ isDeleted: { $ne: true } });
   next();
 });
+
+ShoeProductSchema.pre('findOne', function (next) {
+  this.find({ isDeleted: { $ne: true } });
+  next();
+});
+
 export const ShoeProductModel = model<ShoeProduct>(
   'ShoeProduct',
   ShoeProductSchema,

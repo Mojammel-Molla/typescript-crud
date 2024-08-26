@@ -24,9 +24,19 @@ const deleteProductFromDB = async (id: string) => {
   return result;
 };
 
+const updateProductFromDB = async (id: string, body: object) => {
+  //eslint-disable-next-line
+  const UpdateDoc: any = { $set: {} };
+  Object.entries(body).forEach(([key, value]) => {
+    UpdateDoc.$set[key] = value;
+  });
+  const result = await ShoeProductModel.updateOne({ _id: id }, UpdateDoc);
+  return result;
+};
 export const ProductServices = {
   createProductIntoDB,
   getAllProductsFromDB,
   getSingleProductFromDB,
   deleteProductFromDB,
+  updateProductFromDB,
 };

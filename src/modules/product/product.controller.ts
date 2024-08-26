@@ -40,8 +40,12 @@ const getSingleProduct = async (req: Request, res: Response) => {
       massage: 'Single product retrieved successfully',
       data: result,
     });
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: "Couldn't get single product",
+      error,
+    });
   }
 };
 const deleteProduct = async (req: Request, res: Response) => {
@@ -53,8 +57,32 @@ const deleteProduct = async (req: Request, res: Response) => {
       massage: 'product has been successfully',
       data: result,
     });
-  } catch (err) {
-    console.log(err);
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: "Couldn't delete",
+      error,
+    });
+  }
+};
+
+const updateProduct = async (req: Request, res: Response) => {
+  try {
+    const Id = req.params.productId;
+    const UpdateData = req.body;
+    // const validatedProduct = ProductValidation.parse(UpdateData);
+    const result = await ProductServices.updateProductFromDB(Id, UpdateData);
+    res.status(200).json({
+      success: true,
+      message: 'Product updated successfully!',
+      data: result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      success: false,
+      message: "Couldn't update product",
+      error,
+    });
   }
 };
 
@@ -63,4 +91,5 @@ export const ProductControllers = {
   getAllProducts,
   getSingleProduct,
   deleteProduct,
+  updateProduct,
 };
